@@ -27,7 +27,6 @@ module:
 
 ```bash
 1. run command `cd briapi-template-qris-mpm-dynamic-notification-php` to change directory
-2. run composer install to install all dependencies
 ```
 
 ### Get Token
