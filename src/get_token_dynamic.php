@@ -1,26 +1,21 @@
 <?php
 
-use BRI\Util\GetAccessToken;
-
-require __DIR__ . '/../../briapi-sdk/autoload.php';
-
-require __DIR__ . '/../vendor/autoload.php';
-Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/..' . '')->load();
-
-// env values
-$clientId = 'your_client_id';
-$clientSecret = 'super_secret';
-$privateKey = $_ENV['PRIVATE_KEY'];
+require 'utils.php';
 
 // url path values
 $baseUrl = 'https://api.bridex.qore.page/mock'; //base url
 
-$getAccessToken = new GetAccessToken();
+try {
+  list($clientId, , $privateKey) = getCredentials();
 
-$accessToken = $getAccessToken->getMockOutbound(
-  $clientId,
-  $baseUrl,
-  $privateKey
-);
+  $accessToken = getAccessToken(
+    $clientId,
+    $baseUrl,
+    $privateKey
+  );
 
-echo $accessToken;
+  echo $accessToken;
+} catch (Exception $e) {
+  error_log('Error: ' . $e->getMessage());
+  exit(1);
+}
