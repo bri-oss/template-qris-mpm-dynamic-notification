@@ -1,7 +1,9 @@
 <?php
 
 use BRI\QrisMPMDynamicNotification\NotifyPayment;
+use BRI\Util\ExecuteCurlRequest;
 use BRI\Util\GetAccessToken;
+use BRI\Util\PrepareRequest;
 
 require __DIR__ . '/../../briapi-sdk/autoload.php';
 
@@ -61,7 +63,13 @@ function fetchNotifyPayment(
   string $origin,
   string $accessToken
 ): string {
-  $qrisMpmDynamicNotification = new NotifyPayment();
+  $executeCurlRequest = new ExecuteCurlRequest();
+  $prepareRequest = new PrepareRequest();
+
+  $qrisMpmDynamicNotification = new NotifyPayment(
+    $executeCurlRequest,
+    $prepareRequest
+  );
 
   $response = $qrisMpmDynamicNotification->notifyPayment(
     $baseUrl,
